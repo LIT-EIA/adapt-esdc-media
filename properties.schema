@@ -130,6 +130,14 @@
                 "title": "Caption File",
                 "inputType": "Asset:other",
                 "validators": ["required"]
+              },
+              "trackLabel": {
+                "type": "string",
+                "required": false,
+                "default": "",
+                "title": "Track Label",
+                "inputType": "Text",
+                "validators": []
               }
             }
           }
