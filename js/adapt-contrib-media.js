@@ -36,7 +36,7 @@ define([
       var mediaObj = this.model.get('_media');
       var mediaCCArray = mediaObj['cc'] || [];
 
-      mediaCCArray.forEach(function(item, index){
+      mediaCCArray.forEach(function (item, index) {
         if (item['srclang'] === 'fr') {
           mediaCCArray[index]['trackLabel'] = 'Français';
         }
@@ -68,27 +68,41 @@ define([
     },
 
     setupEventListeners: function () {
-      this.completionEvent = (this.model.get('_setCompletionOn') || 'play');
+      const self = this;
 
-      if (this.completionEvent === 'inview') {
-        this.setupInviewCompletion('.component-widget');
+      this.completionEvent = this.model.get('_setCompletionOn') || 'inview';
+
+      const media = this.model.get('_media');
+      const mediaType = (media.mp3 || media.ogg) ? 'audio' : 'video';
+
+      const $audio = this.$el.find('audio');
+      const $video = this.$el.find('video');
+
+      const handleCompletion = function (event) {
+        self.setCompletionStatus();
+      };
+
+      switch (this.completionEvent) {
+        case 'inview':
+          this.setupInviewCompletion('.component-widget');
+          break;
+        case 'play':
+          if (mediaType === 'audio') {
+            $audio.one('playing', handleCompletion);
+          } else {
+            $video.one('play', handleCompletion);
+          }
+          break;
+        case 'ended':
+          if (mediaType === 'audio') {
+            $audio.one('ended', handleCompletion);
+          } else {
+            $video.one('ended', handleCompletion);
+          }
+          break;
+        default:
+          break;
       }
-
-      this.$el.find('video').on('play', function(event) {
-        console.log('video play!!!!!!!!!!!!!!!', event);
-      });
-
-      this.$el.find('video').on('ended', function(event) {
-        console.log('video ended!!!!!!!!!!!!!!!', event);
-      });
-
-      this.$el.find('audio').on('play', function(event) {
-        console.log('audio play!!!!!!!!!!!!!!!', event);
-      });
-
-      this.$el.find('audio').on('ended', function(event) {
-        console.log('audio ended!!!!!!!!!!!!!!!', event);
-      });
     },
 
     checkIfResetOnRevisit: function () {
