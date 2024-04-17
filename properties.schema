@@ -118,7 +118,8 @@
                 "default": "",
                 "title": "Track Label",
                 "inputType": "Text",
-                "validators": []
+                "validators": [],
+                "help": "Enter the full language name when using a language other than English or French."
               }
             }
           }
