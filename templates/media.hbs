@@ -19,9 +19,6 @@
             </audio>
         {{else}}
             <video aria-hidden="true" preload="none" width="640" height="360" {{#if _playsinline}}playsinline{{/if}} poster="{{_media.poster}}" style="width:100%; height:100%;" controls="controls">
-            {{#if _media.source}}
-                <source src="{{_media.source}}" type="{{_media.type}}"/>
-            {{else}}
                 {{#if _media.mp4}}
                     <source src="{{_media.mp4}}" type="video/mp4"/>
                 {{/if}}
@@ -31,7 +28,6 @@
                 {{#if _media.webm}}
                     <source src="{{_media.webm}}" type="video/webm"/>
                 {{/if}}
-            {{/if}}
             {{#if _useClosedCaptions}}
                 {{#each _media.cc}}
                     <track kind="subtitles" src="{{src}}" label="{{trackLabel}}" type="text/vtt" srclang="{{srclang}}" />

@@ -14,18 +14,11 @@ define([
 
     className: function () {
       var classes = ComponentView.prototype.className.call(this);
-      var playerOptions = this.model.get('_playerOptions');
-      if (playerOptions && playerOptions.toggleCaptionsButtonWhenOnlyOne) {
-        classes += " toggle-captions";
-      }
       return classes;
     },
 
     preRender: function () {
-      this.listenTo(Adapt, {
-        'device:resize': this.onScreenSizeChanged,
-        'device:changed': this.onDeviceChanged
-      });
+      this.listenTo(Adapt, {});
 
       // set initial player state attributes
       this.model.set({
@@ -47,17 +40,6 @@ define([
 
       mediaObj['cc'] = mediaCCArray;
       this.model.set('_media', mediaObj);
-
-      if (this.model.get('_media').source) {
-        var media = this.model.get('_media');
-
-        // Avoid loading of Mixed Content (insecure content on a secure page)
-        if (window.location.protocol === 'https:' && media.source.indexOf('http:') === 0) {
-          media.source = media.source.replace(/^http\:/, 'https:');
-        }
-
-        this.model.set('_media', media);
-      }
 
       this.checkIfResetOnRevisit();
     },
@@ -111,16 +93,6 @@ define([
       if (isResetOnRevisit) {
         this.model.reset(isResetOnRevisit);
       }
-    },
-
-    onDeviceChanged: function () {
-      if (this.model.get('_media').source) {
-        this.$('.mejs-container').width(this.$('.component-widget').width());
-      }
-    },
-
-    onScreenSizeChanged: function () {
-      this.$('audio, video').width(this.$('.component-widget').width());
     },
 
     onSkipToTranscript: function () {
