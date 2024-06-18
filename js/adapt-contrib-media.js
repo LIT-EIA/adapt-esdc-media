@@ -27,7 +27,7 @@ define([
       });
 
       var mediaObj = this.model.get('_media');
-      var mediaCCArray = mediaObj['cc'] || [];
+      var mediaCCArray = !!mediaObj['cc'] ? mediaObj['cc'] : [];
 
       mediaCCArray.forEach(function (item, index) {
         if (item['srclang'] === 'fr') {
