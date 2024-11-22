@@ -27,6 +27,9 @@ define([
       });
 
       var mediaObj = this.model.get('_media');
+
+      if (!mediaObj) return;
+
       var mediaCCArray = !!mediaObj['cc'] ? mediaObj['cc'] : [];
 
       mediaCCArray.forEach(function (item, index) {
@@ -55,6 +58,7 @@ define([
       this.completionEvent = this.model.get('_setCompletionOn') || 'inview';
 
       const media = this.model.get('_media');
+      if (!media) return;
       const mediaType = (media.mp3 || media.ogg) ? 'audio' : 'video';
 
       const $audio = this.$el.find('audio');
