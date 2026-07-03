@@ -4,20 +4,13 @@
   "id": "http://jsonschema.net",
   "$ref": "http://localhost/plugins/content/component/model.schema",
   "globals": {
-    "ariaRegion": {
-      "type": "string",
-      "required": true,
-      "default": "Media player{{#any _transcript._inlineTranscript _transcript._externalTranscript}} and transcript{{/any}}.",
-      "inputType": "Text",
-      "validators": [],
-      "translatable": true
-    },
     "skipToTranscript": {
       "type": "string",
       "required": true,
-      "default": "Skip to transcript",
+      "default": "",
       "inputType": "Text",
       "validators": [],
+      "placeholder": "Skip to transcript / Aller à la transcription",
       "translatable": true
     }
   },
@@ -36,6 +29,7 @@
       "inputType": "Text",
       "validators": [],
       "help": "This is the instruction text",
+      "placeholder": "Select the play button to start the video and/or select the  \"Show transcript\" button to read the narration. / Sélectionnez le bouton de lecture  pour démarrer la vidéo et/ou sélectionnez le bouton  \"Afficher la transcription\" pour lire la narration.",
       "translatable": true
     },
     "_media": {
@@ -199,6 +193,7 @@
           "title": "Inline Open Button",
           "inputType": "Text",
           "validators": [],
+          "placeholder": "View Transcript / Afficher la transcription",
           "translatable": true
         },
         "inlineTranscriptCloseButton": {
@@ -208,6 +203,7 @@
           "title": "Inline Close Button",
           "inputType": "Text",
           "validators": [],
+          "placeholder": "Hide Transcript / Masquer la transcription",
           "translatable": true
         },
         "inlineTranscriptBody": {
@@ -227,6 +223,7 @@
           "title": "Link Open Button",
           "inputType": "Text",
           "validators": [],
+          "placeholder": "View Transcript / Afficher la transcription",
           "translatable": true
         },
         "transcriptLink": {

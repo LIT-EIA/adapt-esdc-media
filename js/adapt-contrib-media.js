@@ -1,8 +1,9 @@
 define([
   'core/js/adapt',
   'core/js/views/componentView',
-  'core/js/models/componentModel'
-], function (Adapt, ComponentView, ComponentModel) {
+  'core/js/models/componentModel',
+  './lang/translation'
+], function (Adapt, ComponentView, ComponentModel, Translation) {
 
   var MediaView = ComponentView.extend({
 
@@ -25,6 +26,10 @@ define([
         '_isMediaEnded': false,
         '_isMediaPlaying': false
       });
+      // set instruction translations strings
+      this.model.set({
+        'defaultInstruction': $.i18n.translate('adapt-media-instruction')
+      })
 
       var mediaObj = this.model.get('_media');
 
@@ -119,14 +124,14 @@ define([
         });
         $button.attr('aria-expanded', false);
         $transcriptBodyContainer.removeClass("inline-transcript-open");
-        $buttonText.html(this.model.get("_transcript").inlineTranscriptButton);
+        $buttonText.html(this.model.get("_transcript").inlineTranscriptButton || $.i18n.translate('adapt-media-inline-transcript-button'));
       } else {
         $transcriptBodyContainer.stop(true, true).slideDown(function () {
           $(window).resize();
         });
         $button.attr('aria-expanded', true);
         $transcriptBodyContainer.addClass("inline-transcript-open");
-        $buttonText.html(this.model.get("_transcript").inlineTranscriptCloseButton);
+        $buttonText.html(this.model.get("_transcript").inlineTranscriptCloseButton || $.i18n.translate('adapt-media-inline-hide-transcript-button'));
 
         if (this.model.get('_transcript')._setCompletionOnView !== false) {
           this.setCompletionStatus();
@@ -140,6 +145,10 @@ define([
       }
     }
 
+  });
+
+  Adapt.once("i18n:ready", function () {
+      Translation.loadTranslations(Adapt);
   });
 
   return Adapt.register('media', {
